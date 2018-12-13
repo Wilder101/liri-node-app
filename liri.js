@@ -70,3 +70,7 @@ if (command !== undefined && searchTerm !== undefined) {
     console.log("Command: " + command);
     console.log("Term: " + searchTerm);
 }
+
+
+// Testing SSH keychain git -> GitHub issue
+// ssh-add ~/.ssh/id_rsa
