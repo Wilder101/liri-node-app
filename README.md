@@ -6,6 +6,7 @@ LIRI is a Node.js command line interface (CLI) application that can be instructe
 
 ## Commands:
 There are four commands available for use. On the command line, they can be used in the following generic format: 
+
 $  node liri.js <command> <"your search term">
 
 The commands available are as follows:
@@ -14,6 +15,6 @@ The commands available are as follows:
 * movie-this
 * do-what-it-says
 
-The search term you choose will depend on which command you give LIRI. For example, if you hope to see a concert performed by Tenacous D, your search term would be "Tenacous D." Similarly, if the name of a song or movie you desire to learn more about, you might use search terms of "Ob-La-Di, Ob-La-Da" or "Citizen Kane" for the respective search. Be sure to actually include a term to search for in order to not recieve a console logged error or a programmatic default value term.
+The search term you choose will depend on which command you give LIRI. For example, if you hope to see a concert performed by Tenacous D, your search term would be "Tenacous D." Similarly, if the name of a song or movie you desire to learn more about, you might use search terms of "Best Song Ever" or "Citizen Kane" for the respective search. Be sure to actually include a term to search for in order to not recieve a console logged error or a programmatic default value term.
 
 
