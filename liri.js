@@ -15,9 +15,8 @@ let request = require("request");
 // Use Moment, a lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates -- requires CLI: "npm install moment"
 let moment = require("moment");
 
-// Future addition as a bonus: log results to a log.txt file
-// File system used for writing logs
-// let fs = require("file-system");
+// File system used for reading and writing files
+let fs = require("fs");
 
 // Keys access for Spotify
 let spotify = new Spotify(keys.spotify);
@@ -29,8 +28,8 @@ let OMDB = keys.OMDB;
 let bandsInTown = keys.BandsInTown
 
 // Testing
-console.log(keys.spotify);
-console.log(spotify);
+// console.log(keys.spotify);
+// console.log(spotify);
 
 // Take in a command (ex: concert-this, spotify-this-song, movie-this, do-what-it-says)
 let command = process.argv[2];
@@ -65,7 +64,7 @@ if (command !== undefined && searchTerm !== undefined) {
             break;
         
         case "do-what-it-says":
-            // lotto();
+            doWhatItSays();
             console.log("do-what-it-says called");
             break;
 
@@ -144,6 +143,11 @@ function spotifyThisSong(song) {
 // Assumption: the searchTerm global variable is valid and has already been validated by program entry
 function movieThis(movie) {
 
+    // As per given instructions, set movie to "Mr. Nobody" if null
+    if(!movie) {
+        movie = "Mr. Nobody";
+    }
+
     let queryURL = "http://www.omdbapi.com/?t=" + movie + "&plot=short&apikey=" + OMDB.id;
 
     // Use Request npm package to query the OMDB API
@@ -165,3 +169,33 @@ function movieThis(movie) {
         }
       });
 } // end movieThis function
+
+// Do What It Says function -- handle do-what-it-says queries
+// Assumption: a random.txt file has been written to contain a LIRI command and an argument
+function doWhatItSays() {
+
+    // Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands
+    // It will run `spotify-this-song` for "I Want it That Way" as defaulted in the file `random.txt`
+
+    fs.readFile("random.txt", "utf8", function(err,data) {
+
+        if (err) {
+            console.log("This is an error reading the file random.txt...");
+
+        } else {
+            let randomText = data.split(",")
+            let command = randomText[0].toLowerCase();
+            let commandItem = randomText[1];
+    
+            if (command === "concert-this") {
+                concertThis(commandItem);
+
+            } else if (command === "spotify-this-song") {
+                spotifyThisSong(commandItem);
+
+            } else if (command === "movie-this") {
+                movieThis(commandItem);
+            }
+        }
+    });
+} // end doWhatItSays function
