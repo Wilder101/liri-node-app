@@ -27,10 +27,6 @@ let OMDB = keys.OMDB;
 // Key access for Bands in Town
 let bandsInTown = keys.BandsInTown
 
-// Testing
-// console.log(keys.spotify);
-// console.log(spotify);
-
 // Take in a command (ex: concert-this, spotify-this-song, movie-this, do-what-it-says)
 let command = process.argv[2];
 
