@@ -1,5 +1,4 @@
 // LIRI, Language Interpretation and Recognition Interface, by Wilder Molyneux, 12/12/18
-// R: CLI: "npm init -y"
 
 // Read and set environment variables with dotenv package -- requires CLI: "npm install dotenv" as a prereq
 require("dotenv").config();
@@ -7,16 +6,20 @@ require("dotenv").config();
 // Import keys.js, which contains API keys
 let keys = require("./keys.js");
 
-// Require node-spotify-api package -- requires CLI: "npm install --save node-spotify-api" as a prereq to creating a Spotify object
+// Require node-spotify-api package -- requires CLI: "npm install node-spotify-api" as a prereq to creating a Spotify object
 let Spotify = require("node-spotify-api");
 
 // Use Request to grab data from the OMDB API and the Bands In Town API -- requires CLI: "npm install request" as a prereq
-// Done
+var request = require("request");
 
-// Use Moment, a lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates -- requires CLI: "npm i moment"
-// Done
+// Use Moment, a lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates -- requires CLI: "npm install moment"
+var moment = require("moment");
 
-// Keys access 
+// Future addition as a bonus: log results to a log.txt file
+// File system used for writing logs
+// let fs = require("file-system");
+
+// Keys access for Spotify
 var spotify = new Spotify(keys.spotify);
 
 // Testing
@@ -29,7 +32,7 @@ let command = process.argv[2];
 // Take in a serch term (ex: artist/band name, song name)
 let searchTerm = process.argv.slice(3).join(" ");
 
-// Check for valid program arguments and proceed
+// Check for valid program arguments and proceed -- example on CLI: 'node liri.js concert-this "Van Halen"'
 if (command !== undefined && searchTerm !== undefined) {
 
     // Show entry success
@@ -37,7 +40,7 @@ if (command !== undefined && searchTerm !== undefined) {
     console.log("Command: " + command);
     console.log("Term: " + searchTerm);
 
-    // Determin which API to use
+    // Determine which API to use
     switch (command) {
 
         case "concert-this":
@@ -46,7 +49,7 @@ if (command !== undefined && searchTerm !== undefined) {
             break;
         
         case "spotify-this-song":
-            //   deposit();
+            spotifyThisSong(searchTerm);
             console.log("spotify-this-song called");
             break;
         
@@ -65,15 +68,12 @@ if (command !== undefined && searchTerm !== undefined) {
     
     } // End switch statement
 
-
-
 } else {    // Program arguments were not existant or not valid
 
     console.log("Sorry. A command and search term are required. You provided: ");
     console.log("Command: " + command);
     console.log("Term: " + searchTerm);
 }
-
 
 // Concert-this function -- handle concert-this queries
 // Assumption: the searchTerm global variable is valid and has already been validated by program entry
@@ -86,9 +86,11 @@ function concertThis(artist) {
 
     // Reference: http://www.artists.bandsintown.com/bandsintown-api
 
-    // Set up function variables
+    // Testing
     // let artist = searchTerm;
     // let artist = "Tenacious D";
+
+        // Set up function variables
     let eventsQuery = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
     // Testing
@@ -97,12 +99,10 @@ function concertThis(artist) {
 
     // Tested perfectly: https://rest.bandsintown.com/artists/Tenacious%20D/events?app_id=codingbootcamp
     
-    var request = require('request');
     request(eventsQuery, function (error, response, body) {
 
-        console.log('error:', error); // Print the error if one occurred
-        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        // console.log('body:', body); // Print the HTML for the Google homepage?????
+        console.log("error: ", error); // Print the error if one occurred
+        console.log("statusCode:", response && response.statusCode); // Print the response status code if a response was received
 
         // Review results
         let theResults = [];
@@ -114,29 +114,41 @@ function concertThis(artist) {
         // console.log(JSON.parse(response.body));
         // console.log(JSON.parse(body));
 
-        // Results display
-        // console.log(theResults[0]);
-
-        console.log("Upcoming events for " + artist + ":\n");
+        console.log("\n" + "Upcoming events for " + artist + ":");
+        console.log("---------------------------------");
 
         for (let i = 0; i < theResults.length; i ++) {
 
-            console.log(theResults[i].venue.name);
-            console.log(theResults[i].venue.city + ", " + theResults[i].venue.region);
-            console.log(theResults[i].venue.country);
-            console.log(theResults[i].datetime + "\n");
+            console.log("Venue:    " + theResults[i].venue.name);
+            console.log("Location: " + theResults[i].venue.city + ", " + theResults[i].venue.region);
+            console.log("          " + theResults[i].venue.country);
+            console.log("Date:     " + moment(theResults[i].datetime.substring(0,10)).format("MM/DD/YYYY"));
+            console.log("---------------------------------");
         }
 
-        // var array1 = ['a', 'b', 'c'];
-        // Note: response will be an array; watch for an empty one
-        // response.forEach(function(element) {
-        //   console.log(element.venue.name);
-        // });
-
+        console.log("");
     }); // End request
+} // end concertThis function
+
+// Spotify this Song function -- handle spotify-this-song queries
+// Assumption: the searchTerm global variable is valid and has already been validated by program entry
+function spotifyThisSong(song) {
+
+    // Call Spotify API with prepopulated Spotify ID and Secret password
+    spotify.search({ type: "track", query: song}, function(err, data) {
+        
+        if (err) {
+            return console.log("Spotify error occurred: " + err);
+        }
+    
+        console.log("---------------------------------"); 
+        console.log("Song:         " + data.tracks.items[0].name); 
+        console.log("Artist:       " + data.tracks.items[0].artists[0].name); 
+        console.log("Spotify Link: " + data.tracks.items[0].external_urls.spotify); 
+        console.log("Album:        " + data.tracks.items[0].album.name); 
+        console.log("---------------------------------"); 
+    });
+
+} // end spotifyThisSong function
 
 
-
-
-
-}
