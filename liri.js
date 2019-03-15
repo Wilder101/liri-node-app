@@ -10,17 +10,23 @@ let keys = require("./keys.js");
 let Spotify = require("node-spotify-api");
 
 // Use Request to grab data from the OMDB API and the Bands In Town API -- requires CLI: "npm install request" as a prereq
-var request = require("request");
+let request = require("request");
 
 // Use Moment, a lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates -- requires CLI: "npm install moment"
-var moment = require("moment");
+let moment = require("moment");
 
 // Future addition as a bonus: log results to a log.txt file
 // File system used for writing logs
 // let fs = require("file-system");
 
 // Keys access for Spotify
-var spotify = new Spotify(keys.spotify);
+let spotify = new Spotify(keys.spotify);
+
+// Key access for OMDB
+let OMDB = keys.OMDB;
+
+// Key access for Bands in Town
+let bandsInTown = keys.BandsInTown
 
 // Testing
 console.log(keys.spotify);
@@ -54,7 +60,7 @@ if (command !== undefined && searchTerm !== undefined) {
             break;
         
         case "movie-this":
-            // withdraw();
+            movieThis(searchTerm);
             console.log("movie-this called");
             break;
         
@@ -79,25 +85,14 @@ if (command !== undefined && searchTerm !== undefined) {
 // Assumption: the searchTerm global variable is valid and has already been validated by program entry
 function concertThis(artist) {
 
-    // This will search the Bands in Town Artist Events API ("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp") for an artist and render the following information about each event to the terminal:
-    // Name of the venue
-    // Venue location
-    // Date of the Event (use moment to format this as "MM/DD/YYYY")
-
     // Reference: http://www.artists.bandsintown.com/bandsintown-api
 
-    // Testing
-    // let artist = searchTerm;
-    // let artist = "Tenacious D";
-
-        // Set up function variables
-    let eventsQuery = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+    // Set up function variables
+    let eventsQuery = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bandsInTown.id; 
 
     // Testing
     console.log("Artist: " + artist);
     console.log("Querying API...");
-
-    // Tested perfectly: https://rest.bandsintown.com/artists/Tenacious%20D/events?app_id=codingbootcamp
     
     request(eventsQuery, function (error, response, body) {
 
@@ -107,12 +102,6 @@ function concertThis(artist) {
         // Review results
         let theResults = [];
         theResults = JSON.parse(body);
-
-        // Testing
-        // console.log(response[0].venue.name);
-        // console.log(JSON.stringify(response.body));
-        // console.log(JSON.parse(response.body));
-        // console.log(JSON.parse(body));
 
         console.log("\n" + "Upcoming events for " + artist + ":");
         console.log("---------------------------------");
@@ -136,7 +125,7 @@ function spotifyThisSong(song) {
 
     // Call Spotify API with prepopulated Spotify ID and Secret password
     spotify.search({ type: "track", query: song}, function(err, data) {
-        
+
         if (err) {
             return console.log("Spotify error occurred: " + err);
         }
@@ -151,4 +140,28 @@ function spotifyThisSong(song) {
 
 } // end spotifyThisSong function
 
+// Movie This function -- handle movie-this queries
+// Assumption: the searchTerm global variable is valid and has already been validated by program entry
+function movieThis(movie) {
 
+    let queryURL = "http://www.omdbapi.com/?t=" + movie + "&plot=short&apikey=" + OMDB.id;
+
+    // Use Request npm package to query the OMDB API
+    request(queryURL, function(error, response, body) {
+
+        // Checks to see if there is an error on the request/response; If no error, retrieve requested data
+        if (!error && response.statusCode === 200) {
+            console.log("-------- Movie Info -----------");
+            console.log("Movie Title:  " + JSON.parse(body).Title);
+            console.log("Release Year: " + JSON.parse(body).Year); 
+            console.log("Country:      " + JSON.parse(body).Country);
+            console.log("Language:     " + JSON.parse(body).Language);
+            console.log("Actors:       " + JSON.parse(body).Actors);
+            console.log("Plot:         " + JSON.parse(body).Plot); 
+            console.log("-------------------------------");
+        } else {
+          console.log("Error :" + error);
+          return;
+        }
+      });
+} // end movieThis function
