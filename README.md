@@ -58,7 +58,7 @@ To use, simply type "node liri.js" followed by one of the following:
 
 **Example - "concert-this" - allows user to search for upcoming concert information via the Bands in Town API.**
 
-![LIRI concert-this example](https://github.com/Wilder101/liri-node-app/tree/master/examples/concert-this-Pink.png "LIRI concert-this example")
+![LIRI concert-this example](examples/concert-this-Pink.png "LIRI concert-this example")
 
 ## Author:
 *Wilder Molyneux*
