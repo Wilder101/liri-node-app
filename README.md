@@ -21,7 +21,7 @@ Here is an example LIRI command that you might start out with to get a feel for 
 
 > $ node liri.js movie-this "The Matrix"
 
-## API Keys
+## API Keys:
 Not included with these files is a .env environment settings file. You will want to create some API keys for Bands in Town, Spotify, and the Open Movie Database (OMDB), then populate those secrets in a .env file located in the root directory of this project. Your .env file will contain:
 
 > SPOTIFY_ID=<replace_with_your_identifier>
@@ -33,7 +33,7 @@ Not included with these files is a .env environment settings file. You will want
 > BANDS_IN_TOWN_ID=_with_your_identifier>
 
 ## Setup:
-To run this application, you will need Node JS installed on your computer.
+To run this application, you will need [Node JS](https://nodejs.org/en/download/) installed on your computer.
 
 Once Node JS has been installed on your computer, open up your command prompt and type the following:
 
