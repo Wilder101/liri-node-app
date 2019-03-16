@@ -6,9 +6,6 @@ require("dotenv").config();
 // Import keys.js, which contains API keys
 let keys = require("./keys.js");
 
-// Require node-spotify-api package -- requires CLI: "npm install node-spotify-api" as a prereq to creating a Spotify object
-let Spotify = require("node-spotify-api");
-
 // Use Request to grab data from the OMDB API and the Bands In Town API -- requires CLI: "npm install request" as a prereq
 let request = require("request");
 
@@ -17,6 +14,9 @@ let moment = require("moment");
 
 // File system used for reading and writing files
 let fs = require("fs");
+
+// Require node-spotify-api package -- requires CLI: "npm install node-spotify-api" as a prereq to creating a Spotify object
+let Spotify = require("node-spotify-api");
 
 // Keys access for Spotify
 let spotify = new Spotify(keys.spotify);

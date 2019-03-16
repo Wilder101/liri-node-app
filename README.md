@@ -33,7 +33,7 @@ Not included with these files is a .env environment settings file. You will want
 > BANDS_IN_TOWN_ID=_with_your_identifier>
 
 ## Setup:
-To run this application, you will need [Node JS](https://nodejs.org/en/download/ "Download Node.js") installed on your computer.
+To run this application, you will need [Node JS](https://nodejs.org/en/download/ "Node.js") installed on your computer.
 
 Once Node JS has been installed on your computer, open up your command prompt and type the following:
 
@@ -55,6 +55,10 @@ To use, simply type "node liri.js" followed by one of the following:
 3. movie-this "any movie name" 
 
 4. do-what-it-says
+
+**Example - "concert-this" - allows user to search for upcoming concert information via the Bands in Town API.**
+
+![LIRI concert-this example](https://github.com/Wilder101/liri-node-app/examples/concert-this-Pink.png "LIRI concert-this example")
 
 ## Author:
 *Wilder Molyneux*
