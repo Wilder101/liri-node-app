@@ -30,7 +30,7 @@ Not included with these files is a .env environment settings file. You will want
 
 > OMDB_ID=<replace_with_your_identifier>
 
-> BANDS_IN_TOWN_ID=_with_your_identifier>
+> BANDS_IN_TOWN_ID=<replace_with_your_identifier>
 
 ## Setup:
 To run this application, you will need [Node JS](https://nodejs.org/en/download/ "Node.js") installed on your computer.
