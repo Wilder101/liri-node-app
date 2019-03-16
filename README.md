@@ -37,7 +37,7 @@ To run this application, you will need Node JS installed on your computer.
 
 Once Node JS has been installed on your computer, open up your command prompt and type the following:
 
-1. git clone https://github.com/packleader206/liri-node-app.git
+1. git clone https://github.com/Wilder101/liri-node-app
 
 2. cd liri-node-app
 
