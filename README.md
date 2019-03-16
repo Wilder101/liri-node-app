@@ -19,7 +19,7 @@ The search term you choose will depend on which command you give LIRI. For examp
 
 Here is an example LIRI command that you might start out with to get a feel for how it works:
 
-> $ node liri.js movie-this "The Matrix"
+> $ node liri.js _movie-this_ _"The Matrix"_
 
 ## API Keys:
 Not included with these files is a .env environment settings file. You will want to create some API keys for Bands in Town, Spotify, and the Open Movie Database (OMDB), then populate those secrets in a .env file located in the root directory of this project. Your .env file will contain:
