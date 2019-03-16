@@ -64,5 +64,13 @@ To use, simply type "node liri.js" followed by one of the following:
 
 ![LIRI spotify-this-song example](examples/spotify-this-song-Elvis.png "LIRI spotify-this-song example")
 
+**Example - "movie-this" - allows user to search for a movie via the OMDB API.**
+
+![LIRI movie-this example](examples/movie-this-BTTF.png "LIRI movie-this example")
+
+**Example - "do-what-it-says" - allows user to query based on the command and argument stored in the random.txt file**
+
+![LIRI do-what-it-says example](examples/do-what-it-says.png "LIRI do-what-it-says example")
+
 ## Author:
 *Wilder Molyneux*
