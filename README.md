@@ -33,7 +33,7 @@ Not included with these files is a .env environment settings file. You will want
 > BANDS_IN_TOWN_ID=_with_your_identifier>
 
 ## Setup:
-To run this application, you will need [Node JS](https://nodejs.org/en/download/) installed on your computer.
+To run this application, you will need [Node JS](https://nodejs.org/en/download/ "Download Node.js") installed on your computer.
 
 Once Node JS has been installed on your computer, open up your command prompt and type the following:
 
