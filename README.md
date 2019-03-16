@@ -7,7 +7,7 @@ LIRI is a Node.js command line interface (CLI) application that can be instructe
 ## Commands:
 There are four commands available for use. On the command line, they can be used in the following generic format: 
 
-> $  node liri.js <command> <"your search term">
+> $  node liri.js _command_ _"your search term"_
 
 The commands available are as follows:
 * concert-this
