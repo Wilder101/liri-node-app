@@ -60,5 +60,9 @@ To use, simply type "node liri.js" followed by one of the following:
 
 ![LIRI concert-this example](examples/concert-this-Pink.png "LIRI concert-this example")
 
+**Example - "spotify-this-song" - allows user to search for a song via the Spotify API.**
+
+![LIRI spotify-this-song example](examples/spotify-this-song-Elvis.png "LIRI spotify-this-song example")
+
 ## Author:
 *Wilder Molyneux*
